@@ -1,3 +1,5 @@
+[![Go](https://github.com/gerbenjacobs/go-habbo/actions/workflows/go.yml/badge.svg)](https://github.com/gerbenjacobs/go-habbo/actions/workflows/go.yml)
+
 # go-habbo
 
 Library to deal with unofficial Habbo API.
