@@ -9,7 +9,7 @@ import (
 	"github.com/gerbenjacobs/go-habbo/habbo"
 )
 
-const version = "0.1.0"
+const version = "0.2.0"
 
 // Parser is a Habbo API parser
 type Parser struct {
@@ -83,9 +83,14 @@ func (p *Parser) call(ctx context.Context, url string) (*http.Response, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to execute request: %w", err)
 	}
-	if resp.StatusCode != http.StatusOK {
+
+	// deal with status codes
+	switch resp.StatusCode {
+	case http.StatusNotFound:
+		return nil, ErrHabboNotFound
+	case http.StatusOK:
+		return resp, nil
+	default:
 		return nil, ErrUnexpectedStatusCode
 	}
-
-	return resp, nil
 }
