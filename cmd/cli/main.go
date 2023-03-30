@@ -19,7 +19,7 @@ func main() {
 
 	// check arguments
 	if len(os.Args) < 3 {
-		log.Fatal("Usage: go-habbo <hotel> <habboID>")
+		log.Fatal("Usage: go-habbo <hotel> <habboName>")
 	}
 	hotel := os.Args[1]
 	identifier := os.Args[2]
@@ -43,6 +43,9 @@ func main() {
 	}
 
 	// remove all flags, allows this to be piped
-	log.SetFlags(0)
-	log.Printf("%s", b)
+	l := log.New(os.Stdout, "", 0).Writer()
+	_, err = l.Write(b)
+	if err != nil {
+		log.Fatalf("failed to write out result: %v", err)
+	}
 }
